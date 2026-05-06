@@ -1,5 +1,4 @@
 <?php
-// app/config/Database.php
 class Database
 {
     private static ?PDO $instance = null;
@@ -7,18 +6,19 @@ class Database
     public static function getInstance(): PDO
     {
         if (self::$instance === null) {
-            $dsn  = sprintf(
-                'mysql:host=%s;port=%s;dbname=%s;charset=utf8mb4',
-                $_ENV['DB_HOST'] ?? 'localhost',
-                $_ENV['DB_PORT'] ?? '3306',
-                $_ENV['DB_NAME'] ?? 'vite_gourmand'
-            );
+            $host = getenv('DB_HOST') ?: getenv('MYSQLHOST') ?: 'localhost';
+            $port = getenv('DB_PORT') ?: getenv('MYSQLPORT') ?: '3306';
+            $name = getenv('DB_NAME') ?: getenv('MYSQLDATABASE') ?: 'railway';
+            $user = getenv('DB_USER') ?: getenv('MYSQLUSER') ?: 'root';
+            $pass = getenv('DB_PASS') ?: getenv('MYSQLPASSWORD') ?: '';
+
+            $dsn = "mysql:host={$host};port={$port};dbname={$name};charset=utf8mb4";
             $options = [
                 PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
                 PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
                 PDO::ATTR_EMULATE_PREPARES   => false,
             ];
-            self::$instance = new PDO($dsn, $_ENV['DB_USER'] ?? 'root', $_ENV['DB_PASS'] ?? '', $options);
+            self::$instance = new PDO($dsn, $user, $pass, $options);
         }
         return self::$instance;
     }

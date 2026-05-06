@@ -6,11 +6,11 @@ class Database
     public static function getInstance(): PDO
     {
         if (self::$instance === null) {
-            $host = getenv('DB_HOST') ?: getenv('MYSQLHOST') ?: 'localhost';
-            $port = getenv('DB_PORT') ?: getenv('MYSQLPORT') ?: '3306';
-            $name = getenv('DB_NAME') ?: getenv('MYSQLDATABASE') ?: 'railway';
-            $user = getenv('DB_USER') ?: getenv('MYSQLUSER') ?: 'root';
-            $pass = getenv('DB_PASS') ?: getenv('MYSQLPASSWORD') ?: '';
+            $host = 'trolley.proxy.rlwy.net';
+            $port = '32472';
+            $name = 'railway';
+            $user = 'root';
+            $pass = 'SWVSFKQvzCfgPMHxcEbLpCGDlLUCguoV';
 
             $dsn = "mysql:host={$host};port={$port};dbname={$name};charset=utf8mb4";
             $options = [

@@ -1,4 +1,7 @@
 <?php
+// Développeur : Stéphane Gautier
+// Formation : TP DWWM - Studi - Mai 2026
+// GitHub : github.com/sgautiersociete-web/vite-et-gourmand
 // Page catalogue des menus - Vite & Gourmand
 // Récupération des menus depuis la BDD avec filtres dynamiques
 

@@ -1,4 +1,7 @@
 <?php
+// Développeur : Stéphane Gautier
+// Formation : TP DWWM - Studi - Mai 2026
+// GitHub : github.com/sgautiersociete-web/vite-et-gourmand
 if(!Session::isLoggedIn() || !in_array(Session::user()['role'],['employe','administrateur'])) {
     header('Location: /connexion'); die();
 }

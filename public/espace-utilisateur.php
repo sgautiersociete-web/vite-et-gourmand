@@ -1,4 +1,7 @@
 <?php
+// Développeur : Stéphane Gautier
+// Formation : TP DWWM - Studi - Mai 2026
+// GitHub : github.com/sgautiersociete-web/vite-et-gourmand
 if(!Session::isLoggedIn()) { header('Location: /connexion'); die(); }
 $user = Session::user();
 try { $db = Database::getInstance(); } catch(Exception $e) { die('Erreur BD'); }

@@ -1,13 +1,26 @@
 <?php
 declare(strict_types=1);
+
+$uri = rtrim(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH), '/');
+
+// Servir les fichiers statiques CSS/JS directement
+$staticFile = __DIR__ . $uri;
+if ($uri !== '' && file_exists($staticFile) && !is_dir($staticFile)) {
+    $ext = pathinfo($staticFile, PATHINFO_EXTENSION);
+    $mimes = ['css'=>'text/css','js'=>'application/javascript','png'=>'image/png','jpg'=>'image/jpeg','ico'=>'image/x-icon','svg'=>'image/svg+xml'];
+    if (isset($mimes[$ext])) {
+        header('Content-Type: ' . $mimes[$ext]);
+        readfile($staticFile);
+        exit;
+    }
+}
+
 define('ROOT_PATH', dirname(__DIR__));
 define('APP_PATH',  ROOT_PATH . '/app');
 require_once APP_PATH . '/config/Database.php';
 require_once APP_PATH . '/config/Session.php';
 require_once APP_PATH . '/helpers/functions.php';
 Session::start();
-
-$uri = rtrim(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH), '/');
 
 $routes = [
     ''                     => 'home',

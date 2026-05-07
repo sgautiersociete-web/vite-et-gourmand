@@ -11,3 +11,4 @@ $stmt = $db->prepare("UPDATE utilisateur SET password_hash = :hash WHERE email I
 $stmt->execute(['hash' => $hash]);
 echo "Mots de passe mis à jour ! Lignes affectées : " . $stmt->rowCount();
 echo "<br><a href='/connexion'>Se connecter</a>";
+ 

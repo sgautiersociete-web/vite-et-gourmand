@@ -1,0 +1,15 @@
+RewriteEngine On
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^menus$ /menus.php [L]
+RewriteRule ^contact$ /contact.php [L]
+RewriteRule ^connexion$ /connexion.php [L]
+RewriteRule ^inscription$ /inscription.php [L]
+RewriteRule ^deconnexion$ /deconnexion.php [L]
+RewriteRule ^menu-detail$ /menu-detail.php [L]
+RewriteRule ^commande$ /commande.php [L]
+RewriteRule ^espace-utilisateur$ /espace-utilisateur.php [L]
+RewriteRule ^espace-employe$ /espace-employe.php [L]
+RewriteRule ^espace-admin$ /espace-admin.php [L]
+RewriteRule ^mentions-legales$ /mentions-legales.php [L]
+RewriteRule ^cgv$ /cgv.php [L]

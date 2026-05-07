@@ -179,7 +179,7 @@ footer a:hover{color:var(--gold-light)}
   <div class="container">
     <p style="font-family:'Playfair Display',serif;font-size:1.2rem;color:rgba(255,255,255,.25);margin-bottom:1rem">Vite & Gourmand</p>
     <p><a href="/mentions-legales">Mentions légales</a> · <a href="/cgv">CGV</a> · <a href="/contact">Contact</a></p>
-    <p style="margin-top:1rem;font-size:.8rem">© <?= date('Y') ?> Vite & Gourmand — Traiteur Bordeaux</p>
+    <p style="margin-top:1rem;font-size:.8rem">Conçu avec ❤️ par <strong>Stéphane Gautier</strong> · © <?= date('Y') ?> Vite & Gourmand — Traiteur Bordeaux</p>
   </div>
 </footer>
 <script>
@@ -189,3 +189,5 @@ document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
 </script>
 </body>
 </html>
+
+ 

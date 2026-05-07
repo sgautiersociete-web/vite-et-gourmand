@@ -1,193 +1,366 @@
 <?php
+// Développeur : Stéphane Gautier
+// Formation : TP DWWM - Studi - Mai 2026
+// Page d'accueil - Vite & Gourmand
+
 try { $db = Database::getInstance(); $dbOk = true; } catch (Exception $e) { $dbOk = false; }
 $avis = [];
-if ($dbOk) { try { $stmt = $db->query("SELECT a.note, a.commentaire, u.nom, u.prenom FROM avis a JOIN utilisateur u ON u.utilisateur_id = a.utilisateur_id WHERE a.statut = 'valide' LIMIT 6"); $avis = $stmt->fetchAll(); } catch (Exception $e) {} }
-?><!DOCTYPE html>
+if ($dbOk) {
+    try {
+        $stmt = $db->query("SELECT a.note, a.commentaire, u.nom, u.prenom 
+                            FROM avis a 
+                            JOIN utilisateur u ON u.utilisateur_id = a.utilisateur_id 
+                            WHERE a.statut = 'valide' 
+                            LIMIT 6");
+        $avis = $stmt->fetchAll();
+    } catch (Exception $e) {}
+}
+?>
+<!DOCTYPE html>
 <html lang="fr">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Vite & Gourmand — Traiteur Bordeaux</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-<style>
-*{margin:0;padding:0;box-sizing:border-box}
-:root{--gold:#C9954A;--gold-light:#E8C17A;--dark:#1A0F00;--cream:#FDF8F0;--warm:#F5EDD8;--text:#3D2B1A;--muted:#8A7460}
-body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--text);overflow-x:hidden}
-h1,h2,h3{font-family:'Playfair Display',serif}
-nav{position:fixed;top:0;width:100%;z-index:100;padding:1.2rem 2rem;display:flex;justify-content:space-between;align-items:center;transition:all .4s;background:transparent}
-nav.scrolled{background:var(--dark);box-shadow:0 4px 30px rgba(0,0,0,.3)}
-.nav-logo{font-family:'Playfair Display',serif;font-size:1.4rem;color:#fff;text-decoration:none;letter-spacing:.05em}
-.nav-logo span{color:var(--gold-light)}
-.nav-links{display:flex;gap:2rem;align-items:center}
-.nav-links a{color:rgba(255,255,255,.85);text-decoration:none;font-size:.9rem;letter-spacing:.08em;text-transform:uppercase;font-weight:500;transition:color .2s}
-.nav-links a:hover{color:var(--gold-light)}
-.btn-nav{background:var(--gold);color:var(--dark)!important;padding:.5rem 1.4rem;border-radius:2rem;font-weight:600!important}
-.hero{min-height:100vh;position:relative;display:flex;align-items:center;justify-content:center;overflow:hidden;background:var(--dark)}
-.hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse at 30% 50%,rgba(201,149,74,.15),transparent 60%),radial-gradient(ellipse at 70% 20%,rgba(201,149,74,.08),transparent 50%);z-index:1}
-.hero-pattern{position:absolute;inset:0;background-image:repeating-linear-gradient(45deg,rgba(201,149,74,.03) 0,rgba(201,149,74,.03) 1px,transparent 0,transparent 50%);background-size:30px 30px;z-index:1}
-.hero-content{position:relative;z-index:2;text-align:center;padding:2rem;max-width:800px}
-.hero-tag{display:inline-block;border:1px solid rgba(201,149,74,.5);color:var(--gold-light);font-size:.75rem;letter-spacing:.2em;text-transform:uppercase;padding:.4rem 1.2rem;border-radius:2rem;margin-bottom:2rem;animation:fadeUp .8s .2s both}
-.hero h1{font-size:clamp(3rem,8vw,6rem);color:#fff;line-height:1;margin-bottom:1.5rem;animation:fadeUp .8s .4s both}
-.hero h1 em{color:var(--gold-light);font-style:normal;display:block}
-.hero-sub{color:rgba(255,255,255,.6);font-size:1.1rem;max-width:500px;margin:0 auto 3rem;line-height:1.7;animation:fadeUp .8s .6s both}
-.hero-btns{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;animation:fadeUp .8s .8s both}
-.btn-gold{background:var(--gold);color:var(--dark);padding:.9rem 2.5rem;border-radius:3rem;text-decoration:none;font-weight:600;transition:all .3s}
-.btn-gold:hover{background:var(--gold-light);transform:translateY(-2px)}
-.btn-ghost{border:1px solid rgba(255,255,255,.3);color:#fff;padding:.9rem 2.5rem;border-radius:3rem;text-decoration:none;transition:all .3s}
-.btn-ghost:hover{border-color:var(--gold-light);color:var(--gold-light)}
-.stats{background:var(--gold);padding:3rem 0}
-.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);max-width:900px;margin:0 auto;text-align:center;padding:0 2rem}
-.stat-num{font-family:'Playfair Display',serif;font-size:2.8rem;font-weight:900;color:var(--dark)}
-.stat-label{font-size:.75rem;letter-spacing:.12em;text-transform:uppercase;opacity:.7;color:var(--dark)}
-.section{padding:7rem 0}
-.container{max-width:1100px;margin:0 auto;padding:0 2rem}
-.section-tag{font-size:.75rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);font-weight:600;margin-bottom:1rem}
-.section-title{font-size:clamp(2rem,4vw,3rem);color:var(--dark);line-height:1.1;margin-bottom:1.5rem}
-.section-body{color:var(--muted);font-size:1.05rem;line-height:1.8;max-width:520px}
-.about{background:var(--cream)}
-.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:6rem;align-items:center}
-.about-card{background:var(--dark);border-radius:1.5rem;padding:3rem;color:#fff;position:relative;overflow:hidden}
-.about-card::before{content:'';position:absolute;top:-30px;right:-30px;width:150px;height:150px;border-radius:50%;background:rgba(201,149,74,.15)}
-.feature{display:flex;align-items:center;gap:1rem;padding:1rem;background:rgba(255,255,255,.05);border-radius:.75rem;border-left:3px solid var(--gold);margin-bottom:.75rem}
-.feature-icon{color:var(--gold-light);font-size:1.2rem}
-.feature-text{font-size:.9rem;color:rgba(255,255,255,.8)}
-.menus-section{background:var(--warm)}
-.menus-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:3rem}
-.menu-card{background:#fff;border-radius:1.5rem;overflow:hidden;transition:transform .3s,box-shadow .3s}
-.menu-card:hover{transform:translateY(-8px);box-shadow:0 20px 50px rgba(58,43,26,.15)}
-.menu-card-img{height:180px;display:flex;align-items:center;justify-content:center;font-size:4rem;background:linear-gradient(135deg,var(--dark),#3d2200)}
-.menu-card-body{padding:1.5rem}
-.menu-badge{display:inline-block;background:var(--warm);color:var(--gold);font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;padding:.3rem .8rem;border-radius:2rem;margin-bottom:.75rem;font-weight:600}
-.menu-title{font-family:'Playfair Display',serif;font-size:1.15rem;color:var(--dark);margin-bottom:.5rem}
-.menu-desc{color:var(--muted);font-size:.85rem;line-height:1.6;margin-bottom:1rem}
-.menu-footer{display:flex;justify-content:space-between;align-items:center}
-.menu-price{font-family:'Playfair Display',serif;font-size:1.3rem;color:var(--gold);font-weight:700}
-.menu-persons{font-size:.78rem;color:var(--muted)}
-.btn-sm-dark{background:var(--dark);color:#fff;padding:.45rem 1.1rem;border-radius:2rem;text-decoration:none;font-size:.8rem;transition:background .2s}
-.btn-sm-dark:hover{background:var(--gold);color:var(--dark)}
-.avis-section{background:var(--dark);padding:7rem 0}
-.avis-section .section-title{color:#fff}
-.avis-section .section-tag{color:var(--gold-light)}
-.avis-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:3rem}
-.avis-card{background:rgba(255,255,255,.05);border:1px solid rgba(201,149,74,.2);border-radius:1.5rem;padding:2rem;transition:border-color .3s}
-.avis-card:hover{border-color:var(--gold)}
-.stars{color:var(--gold-light);font-size:1.1rem;margin-bottom:1rem}
-.avis-text{color:rgba(255,255,255,.7);font-size:.9rem;line-height:1.7;font-style:italic;margin-bottom:1.5rem}
-.avis-author{color:rgba(255,255,255,.35);font-size:.8rem;letter-spacing:.1em;text-transform:uppercase}
-.cta{background:var(--gold);padding:6rem 0;text-align:center}
-.cta h2{font-size:clamp(2rem,4vw,3rem);color:var(--dark);margin-bottom:1rem}
-.cta p{color:rgba(26,15,0,.6);font-size:1.05rem;margin-bottom:2.5rem}
-footer{background:#0D0700;color:rgba(255,255,255,.4);padding:3rem 0;text-align:center}
-footer a{color:rgba(201,149,74,.6);text-decoration:none}
-footer a:hover{color:var(--gold-light)}
-@keyframes fadeUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
-.reveal{opacity:0;transform:translateY(40px);transition:opacity .8s,transform .8s}
-.reveal.visible{opacity:1;transform:none}
-@media(max-width:768px){.about-grid,.menus-grid,.avis-grid{grid-template-columns:1fr}.stats-grid{grid-template-columns:repeat(2,1fr)}.nav-links{display:none}}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vite & Gourmand - Traiteur Bordeaux</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <style>
+        :root {
+            --couleur-principale: #4a2c0a;
+            --couleur-accent: #c9954a;
+            --couleur-fond: #fdf8f0;
+        }
+
+        body {
+            background-color: var(--couleur-fond);
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        /* navbar */
+        .navbar-custom {
+            background-color: var(--couleur-principale);
+        }
+
+        /* section hero */
+        .hero {
+            background-color: var(--couleur-principale);
+            color: white;
+            padding: 80px 0;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 2.8rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .hero p {
+            font-size: 1.1rem;
+            opacity: 0.8;
+            margin-bottom: 2rem;
+        }
+
+        .btn-accent {
+            background-color: var(--couleur-accent);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 5px;
+            font-size: 1rem;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-accent:hover {
+            background-color: #b8843a;
+            color: white;
+        }
+
+        /* stats */
+        .stats-section {
+            background-color: var(--couleur-accent);
+            padding: 40px 0;
+            color: white;
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+        }
+
+        .stat-label {
+            font-size: 0.85rem;
+            opacity: 0.85;
+        }
+
+        /* sections */
+        .section-title {
+            color: var(--couleur-principale);
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+        }
+
+        /* carte menu preview */
+        .menu-preview-card {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            background: white;
+            height: 100%;
+            transition: box-shadow 0.2s;
+        }
+
+        .menu-preview-card:hover {
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .menu-emoji {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        .menu-prix {
+            color: var(--couleur-accent);
+            font-size: 1.3rem;
+            font-weight: 700;
+        }
+
+        /* avis */
+        .avis-card {
+            background: white;
+            border: 1px solid #e8ddd0;
+            border-radius: 8px;
+            padding: 20px;
+            height: 100%;
+        }
+
+        .etoiles {
+            color: var(--couleur-accent);
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+        }
+
+        /* footer */
+        footer {
+            background-color: var(--couleur-principale);
+            color: rgba(255,255,255,0.7);
+            padding: 30px 0;
+        }
+
+        footer a {
+            color: var(--couleur-accent);
+            text-decoration: none;
+        }
+    </style>
 </head>
 <body>
-<nav id="navbar">
-  <a href="/" class="nav-logo">Vite <span>&</span> Gourmand</a>
-  <div class="nav-links">
-    <a href="/">Accueil</a><a href="/menus">Menus</a><a href="/contact">Contact</a>
-    <?php if(Session::isLoggedIn()): ?><a href="/espace-utilisateur">Mon espace</a><a href="/deconnexion">Déconnexion</a>
-    <?php else: ?><a href="/connexion">Connexion</a><a href="/menus" class="btn-nav">Commander</a><?php endif; ?>
-  </div>
-</nav>
-<section class="hero">
-  <div class="hero-bg"></div><div class="hero-pattern"></div>
-  <div class="hero-content">
-    <div class="hero-tag">✦ Traiteur Bordeaux depuis 1999 ✦</div>
-    <h1>L'art de<em>bien recevoir</em></h1>
-    <p class="hero-sub">Des menus raffinés pour vos événements, préparés avec passion par Julie & José depuis 25 ans.</p>
-    <div class="hero-btns">
-      <a href="/menus" class="btn-gold">Découvrir nos menus</a>
-      <a href="/contact" class="btn-ghost">Nous contacter</a>
-    </div>
-  </div>
-</section>
-<div class="stats">
-  <div class="stats-grid">
-    <div><div class="stat-num">25</div><div class="stat-label">Années d'expérience</div></div>
-    <div><div class="stat-num">500+</div><div class="stat-label">Clients satisfaits</div></div>
-    <div><div class="stat-num">4</div><div class="stat-label">Thèmes de menus</div></div>
-    <div><div class="stat-num">2</div><div class="stat-label">Passionnés</div></div>
-  </div>
-</div>
-<section class="section about reveal">
-  <div class="container">
-    <div class="about-grid">
-      <div>
-        <div class="section-tag">✦ Notre histoire</div>
-        <h2 class="section-title">Une cuisine du cœur, depuis 1999</h2>
-        <p class="section-body">Fondée par Julie et José, notre maison de traiteur s'est construite sur une promesse simple : offrir le meilleur de la gastronomie bordelaise pour chacun de vos moments de partage.</p>
-        <p class="section-body" style="margin-top:1rem">Noël, Pâques, anniversaires ou événements professionnels — nous mettons notre savoir-faire au service de vos convives.</p>
-        <a href="/menus" class="btn-gold" style="display:inline-block;margin-top:2rem">Voir nos menus →</a>
-      </div>
-      <div>
-        <div class="about-card">
-          <h3 style="font-size:1.4rem;margin-bottom:1.5rem;color:var(--gold-light)">Ce qui nous distingue</h3>
-          <div class="feature"><div class="feature-icon"><i class="bi bi-check-circle-fill"></i></div><div class="feature-text">Produits frais et locaux sélectionnés chaque semaine</div></div>
-          <div class="feature"><div class="feature-icon"><i class="bi bi-truck"></i></div><div class="feature-text">Livraison à domicile dans tout Bordeaux et sa région</div></div>
-          <div class="feature"><div class="feature-icon"><i class="bi bi-heart-fill"></i></div><div class="feature-text">Menus adaptés aux régimes spéciaux</div></div>
-          <div class="feature"><div class="feature-icon"><i class="bi bi-shield-check"></i></div><div class="feature-text">Respect des normes HACCP et traçabilité garantie</div></div>
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark navbar-custom">
+    <div class="container">
+        <a class="navbar-brand fw-bold" href="/">🍽️ Vite & Gourmand</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="nav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item"><a class="nav-link active" href="/">Accueil</a></li>
+                <li class="nav-item"><a class="nav-link" href="/menus">Nos Menus</a></li>
+                <li class="nav-item"><a class="nav-link" href="/contact">Contact</a></li>
+                <?php if(Session::isLoggedIn()): ?>
+                    <li class="nav-item"><a class="nav-link" href="/espace-utilisateur">Mon espace</a></li>
+                    <li class="nav-item"><a class="nav-link text-danger" href="/deconnexion">Déconnexion</a></li>
+                <?php else: ?>
+                    <li class="nav-item"><a class="nav-link" href="/connexion">Connexion</a></li>
+                    <li class="nav-item">
+                        <a class="btn btn-warning btn-sm ms-2 mt-1" href="/menus">Commander</a>
+                    </li>
+                <?php endif; ?>
+            </ul>
         </div>
-      </div>
     </div>
-  </div>
-</section>
-<section class="section menus-section reveal">
-  <div class="container">
-    <div class="section-tag">✦ Nos créations</div>
-    <h2 class="section-title">Des menus pour chaque occasion</h2>
-    <div class="menus-grid">
-      <div class="menu-card"><div class="menu-card-img">🎄</div><div class="menu-card-body"><div class="menu-badge">Noël</div><div class="menu-title">Menu de Noël Traditionnel</div><div class="menu-desc">Foie gras mi-cuit, dinde farcie aux marrons, bûche maison chocolat-praliné.</div><div class="menu-footer"><div><div class="menu-price">89 €</div><div class="menu-persons">min 4 personnes</div></div><a href="/menus" class="btn-sm-dark">Voir →</a></div></div></div>
-      <div class="menu-card"><div class="menu-card-img">🍽️</div><div class="menu-card-body"><div class="menu-badge">Classique</div><div class="menu-title">Menu Gastronomique</div><div class="menu-desc">Velouté de potimarron, risotto aux champignons des bois, mousse au chocolat.</div><div class="menu-footer"><div><div class="menu-price">45 €</div><div class="menu-persons">min 2 personnes</div></div><a href="/menus" class="btn-sm-dark">Voir →</a></div></div></div>
-      <div class="menu-card"><div class="menu-card-img">🐣</div><div class="menu-card-body"><div class="menu-badge">Pâques</div><div class="menu-title">Menu Pâques Ensoleillé</div><div class="menu-desc">Salade de chèvre chaud, gigot d'agneau de lait, tarte aux fraises maison.</div><div class="menu-footer"><div><div class="menu-price">72 €</div><div class="menu-persons">min 4 personnes</div></div><a href="/menus" class="btn-sm-dark">Voir →</a></div></div></div>
+</nav>
+
+<!-- Hero -->
+<section class="hero">
+    <div class="container">
+        <p class="text-warning mb-2"><small>Traiteur Bordeaux depuis 1999</small></p>
+        <h1>Vite & Gourmand</h1>
+        <p>Des menus raffinés pour tous vos événements,<br>préparés avec passion par Julie & José.</p>
+        <a href="/menus" class="btn-accent me-2">Voir nos menus</a>
+        <a href="/contact" class="btn btn-outline-light">Nous contacter</a>
     </div>
-    <div style="text-align:center;margin-top:3rem"><a href="/menus" class="btn-gold">Voir tous nos menus</a></div>
-  </div>
 </section>
+
+<!-- Stats -->
+<div class="stats-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-6 col-md-3">
+                <div class="stat-number">25</div>
+                <div class="stat-label">Années d'expérience</div>
+            </div>
+            <div class="col-6 col-md-3">
+                <div class="stat-number">500+</div>
+                <div class="stat-label">Clients satisfaits</div>
+            </div>
+            <div class="col-6 col-md-3">
+                <div class="stat-number">4</div>
+                <div class="stat-label">Thèmes de menus</div>
+            </div>
+            <div class="col-6 col-md-3">
+                <div class="stat-number">2</div>
+                <div class="stat-label">Passionnés</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Présentation -->
+<section class="py-5">
+    <div class="container">
+        <div class="row align-items-center g-4">
+            <div class="col-md-6">
+                <h2 class="section-title">Notre histoire</h2>
+                <p class="text-muted">
+                    Fondée en 1999 par <strong>Julie</strong> et <strong>José</strong>, 
+                    notre entreprise familiale propose des prestations de restauration 
+                    pour tous vos événements avec des produits frais et locaux.
+                </p>
+                <ul class="list-unstyled text-muted">
+                    <li class="mb-2"><i class="bi bi-check-circle-fill text-warning me-2"></i>Produits frais et locaux</li>
+                    <li class="mb-2"><i class="bi bi-check-circle-fill text-warning me-2"></i>Livraison à domicile</li>
+                    <li class="mb-2"><i class="bi bi-check-circle-fill text-warning me-2"></i>Menus végétariens disponibles</li>
+                    <li class="mb-2"><i class="bi bi-check-circle-fill text-warning me-2"></i>Allergènes indiqués sur chaque plat</li>
+                </ul>
+                <a href="/menus" class="btn-accent">Voir nos menus →</a>
+            </div>
+            <div class="col-md-6">
+                <div class="row g-3">
+                    <div class="col-6">
+                        <div class="text-center p-3 border rounded bg-white">
+                            <div class="h3 fw-bold" style="color:var(--couleur-accent)">Julie</div>
+                            <small class="text-muted">Chef cuisinière</small>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="text-center p-3 border rounded bg-white">
+                            <div class="h3 fw-bold" style="color:var(--couleur-accent)">José</div>
+                            <small class="text-muted">Logistique & livraison</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Aperçu menus -->
+<section class="py-5" style="background:#f8f4ee">
+    <div class="container">
+        <h2 class="section-title text-center mb-4">Nos menus phares</h2>
+        <div class="row g-3">
+            <div class="col-md-4">
+                <div class="menu-preview-card">
+                    <div class="menu-emoji">🎄</div>
+                    <h5>Menu de Noël Traditionnel</h5>
+                    <p class="text-muted small">Foie gras, dinde aux marrons, bûche maison</p>
+                    <div class="d-flex justify-content-between align-items-center mt-3">
+                        <div>
+                            <div class="menu-prix">89 €/pers.</div>
+                            <small class="text-muted">min 4 personnes</small>
+                        </div>
+                        <a href="/menus" class="btn btn-sm btn-outline-secondary">Voir →</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="menu-preview-card">
+                    <div class="menu-emoji">🍽️</div>
+                    <h5>Menu Classique Gastronomique</h5>
+                    <p class="text-muted small">Velouté, risotto champignons, mousse chocolat</p>
+                    <div class="d-flex justify-content-between align-items-center mt-3">
+                        <div>
+                            <div class="menu-prix">45 €/pers.</div>
+                            <small class="text-muted">min 2 personnes</small>
+                        </div>
+                        <a href="/menus" class="btn btn-sm btn-outline-secondary">Voir →</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="menu-preview-card">
+                    <div class="menu-emoji">🐣</div>
+                    <h5>Menu Pâques Ensoleillé</h5>
+                    <p class="text-muted small">Agneau de lait, légumes de saison, tarte fraises</p>
+                    <div class="d-flex justify-content-between align-items-center mt-3">
+                        <div>
+                            <div class="menu-prix">72 €/pers.</div>
+                            <small class="text-muted">min 4 personnes</small>
+                        </div>
+                        <a href="/menus" class="btn btn-sm btn-outline-secondary">Voir →</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="text-center mt-4">
+            <a href="/menus" class="btn-accent">Voir tous nos menus</a>
+        </div>
+    </div>
+</section>
+
+<!-- Avis clients -->
 <?php if(!empty($avis)): ?>
-<section class="avis-section reveal">
-  <div class="container">
-    <div class="section-tag">✦ Ce qu'ils disent</div>
-    <h2 class="section-title">Nos clients témoignent</h2>
-    <div class="avis-grid">
-      <?php foreach($avis as $a): ?>
-      <div class="avis-card">
-        <div class="stars"><?php for($i=1;$i<=5;$i++) echo $i<=$a['note']?'★':'☆'; ?></div>
-        <div class="avis-text">"<?= htmlspecialchars($a['commentaire']) ?>"</div>
-        <div class="avis-author">— <?= htmlspecialchars($a['prenom'].' '.substr($a['nom'],0,1).'.') ?></div>
-      </div>
-      <?php endforeach; ?>
+<section class="py-5">
+    <div class="container">
+        <h2 class="section-title text-center mb-4">Avis de nos clients</h2>
+        <div class="row g-3">
+            <?php foreach($avis as $a): ?>
+            <div class="col-md-4">
+                <div class="avis-card">
+                    <div class="etoiles">
+                        <?php for($i = 1; $i <= 5; $i++): ?>
+                            <?= $i <= $a['note'] ? '★' : '☆' ?>
+                        <?php endfor; ?>
+                    </div>
+                    <p class="text-muted fst-italic small">"<?= htmlspecialchars($a['commentaire']) ?>"</p>
+                    <small class="fw-bold">
+                        — <?= htmlspecialchars($a['prenom'] . ' ' . substr($a['nom'], 0, 1) . '.') ?>
+                    </small>
+                </div>
+            </div>
+            <?php endforeach; ?>
+        </div>
     </div>
-  </div>
 </section>
 <?php endif; ?>
-<section class="cta reveal">
-  <div class="container">
-    <h2>Prêt à régaler vos convives ?</h2>
-    <p>Commandez en ligne en quelques clics, nous nous occupons du reste.</p>
-    <a href="/menus" class="btn-gold" style="font-size:1.05rem;padding:1rem 3rem">Passer commande →</a>
-  </div>
+
+<!-- CTA -->
+<section class="py-5 text-center" style="background-color:var(--couleur-principale);color:white">
+    <div class="container">
+        <h2 class="mb-3">Prêt à commander ?</h2>
+        <p class="mb-4 opacity-75">Commandez en ligne en quelques clics.</p>
+        <a href="/menus" class="btn-accent">Découvrir nos menus →</a>
+    </div>
 </section>
-<footer>
-  <div class="container">
-    <p style="font-family:'Playfair Display',serif;font-size:1.2rem;color:rgba(255,255,255,.25);margin-bottom:1rem">Vite & Gourmand</p>
-    <p><a href="/mentions-legales">Mentions légales</a> · <a href="/cgv">CGV</a> · <a href="/contact">Contact</a></p>
-    <p style="margin-top:1rem;font-size:.8rem">Conçu avec ❤️ par <strong>Stéphane Gautier</strong> · © <?= date('Y') ?> Vite & Gourmand — Traiteur Bordeaux</p>
-  </div>
+
+<!-- Footer -->
+<footer class="text-center">
+    <div class="container">
+        <p class="mb-1">© <?= date('Y') ?> Vite & Gourmand — Traiteur Bordeaux</p>
+        <p class="mb-2">
+            <a href="/mentions-legales">Mentions légales</a> · 
+            <a href="/cgv">CGV</a> · 
+            <a href="/contact">Contact</a>
+        </p>
+        <small style="color:rgba(201,149,74,0.6)">
+            Conçu avec ❤️ par <strong style="color:rgba(201,149,74,0.8)">Stéphane Gautier</strong>
+        </small>
+    </div>
 </footer>
-<script>
-window.addEventListener('scroll',()=>document.getElementById('navbar').classList.toggle('scrolled',window.scrollY>50));
-const obs=new IntersectionObserver(e=>e.forEach(el=>{if(el.isIntersecting)el.target.classList.add('visible')}),{threshold:.1});
-document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
-</script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
-
- 

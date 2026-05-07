@@ -1,4 +1,5 @@
 <?php
+error_log("URI=".$_SERVER["REQUEST_URI"]." METHOD=".$_SERVER["REQUEST_METHOD"]);
 declare(strict_types=1);
 define('ROOT_PATH', dirname(__DIR__));
 define('APP_PATH',  ROOT_PATH . '/app');
@@ -46,3 +47,5 @@ if($page) {
 
 http_response_code(404);
 echo '<!DOCTYPE html><html><head><meta charset="UTF-8"><title>404</title></head><body style="font-family:sans-serif;text-align:center;padding:5rem;background:#FDF8F0"><h1 style="font-family:serif;color:#1A0F00">404</h1><p style="color:#8A7460">Page non trouvée</p><a href="/" style="color:#C9954A">← Retour</a></body></html>';
+// DEBUG - à supprimer après
+// echo "URI: $uri | METHOD: " . $_SERVER['REQUEST_METHOD'];

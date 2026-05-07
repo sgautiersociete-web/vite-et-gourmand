@@ -1,11 +1,11 @@
 <?php
 define('ROOT_PATH', dirname(__DIR__));
 define('APP_PATH',  ROOT_PATH . '/app');
-require_once APP_PATH . '/config/Database.php';
-require_once APP_PATH . '/config/Session.php';
-require_once APP_PATH . '/helpers/functions.php';
+require_once APP_PATH . '/config/Database';
+require_once APP_PATH . '/config/Session';
+require_once APP_PATH . '/helpers/functions';
 Session::start();
-if(!Session::isLoggedIn() || !in_array(Session::user()['role'],['employe','administrateur'])) { header('Location: /connexion.php'); die(); }
+if(!Session::isLoggedIn() || !in_array(Session::user()['role'],['employe','administrateur'])) { header('Location: /connexion'); die(); }
 $db   = Database::getInstance();
 $id   = (int)($_POST['menu_id'] ?? 0);
 $data = [
@@ -25,4 +25,4 @@ if($id) {
     $db->prepare("INSERT INTO menu (theme_id,regime_id,titre,description,nb_personnes_min,prix,conditions,quantite_restante) VALUES (:theme_id,:regime_id,:titre,:description,:nb_personnes_min,:prix,:conditions,:quantite_restante)")->execute($data);
 }
 Session::flash('success','Menu enregistré.');
-header('Location: /espace-employe.php?tab=menus'); die();
+header('Location: /espace-employe?tab=menus'); die();

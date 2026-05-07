@@ -46,7 +46,7 @@ footer a{color:rgba(201,149,74,.6);text-decoration:none}
   <p>En cas de litige, une solution amiable sera recherchée en priorité. À défaut, le tribunal compétent sera celui de Bordeaux.</p>
 </div>
 <footer>
-  © <?= date('Y') ?> Vite & Gourmand · <a href="/mentions-legales.php">Mentions légales</a> · <a href="/contact.php">Contact</a>
+  © <?= date('Y') ?> Vite & Gourmand · <a href="/mentions-legales">Mentions légales</a> · <a href="/contact">Contact</a>
 </footer>
 </body>
 </html>

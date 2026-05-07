@@ -1,6 +1,6 @@
 <?php
 if(!Session::isLoggedIn() || Session::user()['role'] !== 'administrateur') {
-    header('Location: /connexion.php'); die();
+    header('Location: /connexion'); die();
 }
 $user = Session::user();
 $db   = Database::getInstance();
@@ -79,9 +79,9 @@ nav{background:var(--dark);padding:1.2rem 2rem;display:flex;justify-content:spac
   <a href="/" class="nav-logo">Vite <span>&</span> Gourmand</a>
   <div class="nav-links">
     <a href="/">Accueil</a>
-    <a href="/espace-admin.php">Admin</a>
-    <a href="/espace-employe.php">Employé</a>
-    <a href="/deconnexion.php" style="color:rgba(255,100,100,.7)">Déconnexion</a>
+    <a href="/espace-admin">Admin</a>
+    <a href="/espace-employe">Employé</a>
+    <a href="/deconnexion" style="color:rgba(255,100,100,.7)">Déconnexion</a>
   </div>
 </nav>
 
@@ -195,7 +195,7 @@ nav{background:var(--dark);padding:1.2rem 2rem;display:flex;justify-content:spac
   <!-- COMMANDES (même vue que employé) -->
   <div class="tab-content <?= $tab==='commandes'?'active':'' ?>">
     <p style="color:var(--muted);margin-bottom:1rem">Accédez à la gestion complète des commandes depuis l'espace employé.</p>
-    <a href="/espace-employe.php?tab=commandes" style="background:var(--dark);color:#fff;padding:.75rem 2rem;border-radius:1rem;text-decoration:none;font-size:.9rem;font-weight:500">
+    <a href="/espace-employe?tab=commandes" style="background:var(--dark);color:#fff;padding:.75rem 2rem;border-radius:1rem;text-decoration:none;font-size:.9rem;font-weight:500">
       <i class="bi bi-arrow-right"></i> Gérer les commandes
     </a>
   </div>

@@ -40,7 +40,7 @@ footer a{color:rgba(201,149,74,.6);text-decoration:none}
   <p>Ce site utilise uniquement des cookies de session nécessaires au fonctionnement de l'application. Aucun cookie publicitaire n'est utilisé.</p>
 </div>
 <footer>
-  © <?= date('Y') ?> Vite & Gourmand · <a href="/cgv.php">CGV</a> · <a href="/contact.php">Contact</a>
+  © <?= date('Y') ?> Vite & Gourmand · <a href="/cgv">CGV</a> · <a href="/contact">Contact</a>
 </footer>
 </body>
 </html>

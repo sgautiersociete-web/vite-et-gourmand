@@ -17,9 +17,9 @@ if ($uri !== '' && file_exists($staticFile) && !is_dir($staticFile)) {
 
 define('ROOT_PATH', dirname(__DIR__));
 define('APP_PATH',  ROOT_PATH . '/app');
-require_once APP_PATH . '/config/Database.php';
-require_once APP_PATH . '/config/Session.php';
-require_once APP_PATH . '/helpers/functions.php';
+require_once APP_PATH . '/config/Database';
+require_once APP_PATH . '/config/Session';
+require_once APP_PATH . '/helpers/functions';
 Session::start();
 
 $routes = [
@@ -50,13 +50,13 @@ $routes = [
 $page = $routes[$uri] ?? null;
 
 if ($page !== null) {
-    $file = __DIR__ . '/' . $page . '.php';
+    $file = __DIR__ . '/' . $page . '';
     if (file_exists($file)) {
         require $file;
         exit;
     }
     http_response_code(500);
-    echo "Fichier manquant : $page.php";
+    echo "Fichier manquant : $page";
     exit;
 }
 

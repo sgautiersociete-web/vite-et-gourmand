@@ -1,6 +1,6 @@
 <?php
 
-if(Session::isLoggedIn()) header('Location: /espace-utilisateur.php') and die();
+if(Session::isLoggedIn()) header('Location: /espace-utilisateur') and die();
 
 $error   = '';
 $success = '';
@@ -85,7 +85,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--dark);min-height:100vh;di
   <?php endif; ?>
   <?php if($success): ?>
   <div class="success"><i class="bi bi-check-circle"></i> <?= htmlspecialchars($success) ?>
-    <br><a href="/connexion.php" style="color:#16a34a;font-weight:600">Se connecter →</a>
+    <br><a href="/connexion" style="color:#16a34a;font-weight:600">Se connecter →</a>
   </div>
   <?php else: ?>
 
@@ -139,7 +139,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--dark);min-height:100vh;di
   <?php endif; ?>
 
   <div class="links">
-    Déjà un compte ? <a href="/connexion.php">Se connecter</a>
+    Déjà un compte ? <a href="/connexion">Se connecter</a>
   </div>
 </div>
 

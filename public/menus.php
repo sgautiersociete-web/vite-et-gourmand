@@ -79,14 +79,14 @@ footer a:hover{color:var(--gold-light)}
   <a href="/" class="nav-logo">Vite <span>&</span> Gourmand</a>
   <div class="nav-links">
     <a href="/">Accueil</a>
-    <a href="/menus.php" class="active">Menus</a>
-    <a href="/contact.php">Contact</a>
+    <a href="/menus" class="active">Menus</a>
+    <a href="/contact">Contact</a>
     <?php if(Session::isLoggedIn()): ?>
-      <a href="/espace-utilisateur.php">Mon espace</a>
-      <a href="/deconnexion.php">Déconnexion</a>
+      <a href="/espace-utilisateur">Mon espace</a>
+      <a href="/deconnexion">Déconnexion</a>
     <?php else: ?>
-      <a href="/connexion.php">Connexion</a>
-      <a href="/menus.php" class="btn-nav">Commander</a>
+      <a href="/connexion">Connexion</a>
+      <a href="/menus" class="btn-nav">Commander</a>
     <?php endif; ?>
   </div>
 </nav>
@@ -172,7 +172,7 @@ footer a:hover{color:var(--gold-light)}
               <div class="price"><?= number_format($m['prix'],2) ?> €</div>
               <div class="persons"><i class="bi bi-people"></i> min <?= $m['nb_personnes_min'] ?> pers.</div>
             </div>
-            <a href="/menu-detail.php?id=<?= $m['menu_id'] ?>" class="btn-detail">Voir le détail →</a>
+            <a href="/menu-detail?id=<?= $m['menu_id'] ?>" class="btn-detail">Voir le détail →</a>
           </div>
         </div>
       </div>
@@ -187,7 +187,7 @@ footer a:hover{color:var(--gold-light)}
 
 <footer>
   <p style="font-family:'Playfair Display',serif;color:rgba(255,255,255,.2);margin-bottom:.5rem">Vite & Gourmand</p>
-  <p><a href="/mentions-legales.php">Mentions légales</a> · <a href="/cgv.php">CGV</a> · <a href="/contact.php">Contact</a></p>
+  <p><a href="/mentions-legales">Mentions légales</a> · <a href="/cgv">CGV</a> · <a href="/contact">Contact</a></p>
   <p style="margin-top:.5rem;font-size:.8rem">© <?= date('Y') ?> Vite & Gourmand</p>
 </footer>
 

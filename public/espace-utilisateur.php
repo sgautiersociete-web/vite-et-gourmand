@@ -1,5 +1,5 @@
 <?php
-if(!Session::isLoggedIn()) { header('Location: /connexion.php'); die(); }
+if(!Session::isLoggedIn()) { header('Location: /connexion'); die(); }
 $user = Session::user();
 try { $db = Database::getInstance(); } catch(Exception $e) { die('Erreur BD'); }
 
@@ -105,9 +105,9 @@ footer a{color:rgba(201,149,74,.6);text-decoration:none}
   <a href="/" class="nav-logo">Vite <span>&</span> Gourmand</a>
   <div class="nav-links">
     <a href="/">Accueil</a>
-    <a href="/menus.php">Menus</a>
-    <a href="/espace-utilisateur.php" class="active">Mon espace</a>
-    <a href="/deconnexion.php" style="color:rgba(255,100,100,.7)">Déconnexion</a>
+    <a href="/menus">Menus</a>
+    <a href="/espace-utilisateur" class="active">Mon espace</a>
+    <a href="/deconnexion" style="color:rgba(255,100,100,.7)">Déconnexion</a>
   </div>
 </nav>
 
@@ -137,7 +137,7 @@ footer a{color:rgba(201,149,74,.6);text-decoration:none}
     <div class="empty">
       <div class="empty-icon">🛒</div>
       <p>Vous n'avez pas encore de commande.</p>
-      <a href="/menus.php" style="color:var(--gold);font-weight:600">Découvrir nos menus →</a>
+      <a href="/menus" style="color:var(--gold);font-weight:600">Découvrir nos menus →</a>
     </div>
     <?php else: ?>
     <?php foreach($commandes as $c): ?>
@@ -269,7 +269,7 @@ footer a{color:rgba(201,149,74,.6);text-decoration:none}
 </div>
 
 <footer>
-  <p>© <?= date('Y') ?> Vite & Gourmand · <a href="/mentions-legales.php">Mentions légales</a> · <a href="/cgv.php">CGV</a></p>
+  <p>© <?= date('Y') ?> Vite & Gourmand · <a href="/mentions-legales">Mentions légales</a> · <a href="/cgv">CGV</a></p>
 </footer>
 </body>
 </html>

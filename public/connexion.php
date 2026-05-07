@@ -24,9 +24,9 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
                 'role'   => $user['role_libelle'],
             ]);
             $redirect = match($user['role_libelle']) {
-                'administrateur' => '/espace-admin.php',
-                'employe'        => '/espace-employe.php',
-                default          => '/espace-utilisateur.php',
+                'administrateur' => '/espace-admin',
+                'employe'        => '/espace-employe',
+                default          => '/espace-utilisateur',
             };
             header('Location: '.$redirect);
             die();
@@ -61,7 +61,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--dark);min-height:100vh;di
 .form-input:focus{outline:none;border-color:var(--gold)}
 .btn-submit{width:100%;background:var(--dark);color:#fff;border:none;padding:1rem;border-radius:1rem;font-family:'DM Sans',sans-seri
 cd ~/Documents/GitHub/vite-et-gourmand
-cat > public/connexion.php << 'PHPEOF'
+cat > public/connexion << 'PHPEOF'
 Session::start();
 
 if(Session::isLoggedIn()) header('Location: /espace-utilisateur') and die();
@@ -88,9 +88,9 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
                 'role'   => $user['role_libelle'],
             ]);
             $redirect = match($user['role_libelle']) {
-                'administrateur' => '/espace-admin.php',
-                'employe'        => '/espace-employe.php',
-                default          => '/espace-utilisateur.php',
+                'administrateur' => '/espace-admin',
+                'employe'        => '/espace-employe',
+                default          => '/espace-utilisateur',
             };
             header('Location: '.$redirect);
             die();
@@ -161,9 +161,9 @@ body{font-family:'DM Sans',sans-serif;background:var(--dark);min-height:100vh;di
   <div class="divider">ou</div>
 
   <div class="links">
-    <a href="/mot-de-passe-oublie.php">Mot de passe oublié ?</a>
+    <a href="/mot-de-passe-oublie">Mot de passe oublié ?</a>
     <br><br>
-    Pas encore de compte ? <a href="/inscription.php">Créer un compte</a>
+    Pas encore de compte ? <a href="/inscription">Créer un compte</a>
   </div>
 </div>
 </body>

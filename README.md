@@ -1,150 +1,192 @@
-# Vite & Gourmand – Application Web Traiteur
-
-Application web de commande de menus pour le traiteur bordelais **Vite & Gourmand**.
-
-## Stack technique
-
-| Couche | Technologie |
-|--------|------------|
-| Front-end | HTML5, CSS3, Bootstrap 5.3, JavaScript ES6+ |
-| Back-end | PHP 8.2 (architecture MVC maison) |
-| BD Relationnelle | MySQL 8.0 |
-| BD NoSQL | MongoDB 6.0 |
+Application web de commande en ligne pour le traiteur bordelais **Vite & Gourmand**.
+Développée par **Stéphane Gautier** dans le cadre du TP Développeur Web et Web Mobile (Studi).
 
 ---
 
-## Prérequis
+## 🌐 Liens
 
-- PHP ≥ 8.2
-- MySQL ≥ 8.0 ou MariaDB ≥ 10.6
-- MongoDB ≥ 6.0 (Community)
-- Composer
-- Serveur web (Apache / Nginx) ou serveur PHP intégré
+| | |
+|---|---|
+| **Application en production** | https://vite-et-gourmand-production-983f.up.railway.app |
+| **Dépôt GitHub** | https://github.com/sgautiersociete-web/vite-et-gourmand |
+| **Gestion de projet** | [Tableau Trello](https://trello.com) |
+
+### Comptes de démonstration
+
+| Rôle | Email | Mot de passe |
+|------|-------|-------------|
+| Administrateur | admin@viteetgourmand.fr | password |
+| Employé | employe1@viteetgourmand.fr | password |
+| Utilisateur | client@test.fr | password |
 
 ---
 
-## Installation locale (étape par étape)
+## 📋 Présentation du projet
 
-### 1. Cloner le dépôt
+Vite & Gourmand est une entreprise de traiteur familiale fondée en 1999 à Bordeaux par Julie et José. L'application web permet de :
 
+- Consulter le catalogue de menus avec filtres dynamiques
+- Passer des commandes en ligne avec calcul automatique du prix
+- Gérer les commandes depuis un espace employé
+- Administrer l'application depuis un espace admin avec statistiques
+
+---
+
+## 🛠️ Stack technique
+
+| Couche | Technologie | Justification |
+|--------|------------|---------------|
+| Front-end | HTML5, CSS3, Bootstrap 5 | Responsive, accessibilité, rapidité |
+| Front-end | JavaScript ES6 | Filtres dynamiques, validation formulaires |
+| Back-end | PHP 8.2 (MVC natif) | Maîtrise des fondamentaux, sans framework |
+| Base de données | MySQL 8 | Relationnel, contraintes intégrité |
+| Déploiement | Railway | PaaS moderne, SSL auto, CD depuis GitHub |
+| Versioning | Git + GitHub | Branches main/develop/feature |
+
+---
+
+## 🚀 Installation locale
+
+### Prérequis
+
+- PHP 8.2+
+- MySQL 8.0+
+- Git
+
+### Étapes
+
+**1. Cloner le dépôt**
 ```bash
-git clone https://github.com/[VOTRE_USERNAME]/vite-et-gourmand.git
+git clone https://github.com/sgautiersociete-web/vite-et-gourmand.git
 cd vite-et-gourmand
 ```
 
-### 2. Configurer l'environnement
-
-```bash
-cp .env.example .env
-```
-
-Éditer `.env` :
-
-```env
-APP_URL=http://localhost:8000
-
-DB_HOST=localhost
-DB_PORT=3306
-DB_NAME=vite_gourmand
-DB_USER=root
-DB_PASS=votre_mot_de_passe
-
-MONGO_URI=mongodb://localhost:27017
-MONGO_DB=vite_gourmand
-
-MAIL_FROM=noreply@viteetgourmand.fr
-```
-
-### 3. Créer et alimenter la base MySQL
-
+**2. Créer la base de données**
 ```bash
 mysql -u root -p < database/schema.sql
 mysql -u root -p < database/fixtures.sql
 ```
 
-> ⚠️ Les mots de passe des comptes de test dans `fixtures.sql` sont des **placeholders**.
-> Générez-les avec : `password_hash('VotreMotDePasse!1', PASSWORD_BCRYPT, ['cost' => 12])`
-
-### 4. Configurer MongoDB
-
+**3. Configurer l'environnement**
 ```bash
-mongosh < database/mongo_setup.js
+cp .env.example .env
+# Éditer .env avec vos identifiants MySQL
 ```
 
-### 5. Installer les dépendances PHP (optionnel - PHPMailer)
-
+**4. Lancer le serveur**
 ```bash
-composer install
+php -S localhost:8000 public/index.php
 ```
 
-### 6. Lancer le serveur de développement
-
-```bash
-php -S localhost:8000 -t public/
-```
-
-Accéder à : **http://localhost:8000**
+**5. Accéder à l'application**
+http://localhost:8000
 
 ---
 
-## Structure du projet
-
-```
+## 📁 Structure du projet
 vite-et-gourmand/
-├── public/             ← Racine web (index.php, css/, js/, images/)
+├── public/                 ← Point d'entrée web
+│   ├── index.php           ← Routeur central (front controller)
+│   ├── home.php            ← Page d'accueil
+│   ├── menus.php           ← Catalogue menus avec filtres
+│   ├── menu-detail.php     ← Détail d'un menu
+│   ├── connexion.php       ← Authentification
+│   ├── inscription.php     ← Création de compte
+│   ├── espace-utilisateur.php  ← Espace client
+│   ├── espace-employe.php  ← Espace employé
+│   ├── espace-admin.php    ← Espace administrateur
+│   ├── contact.php         ← Formulaire de contact
+│   ├── css/                ← Feuilles de style
+│   └── js/                 ← Scripts JavaScript
 ├── app/
-│   ├── config/         ← Database.php, Session.php
-│   ├── controllers/    ← AuthController, MenuController, etc.
-│   ├── models/         ← UserModel, MenuModel, CommandeModel, etc.
-│   ├── views/          ← Templates PHP
-│   └── helpers/        ← functions.php
+│   ├── config/
+│   │   ├── Database.php    ← Connexion PDO MySQL (Singleton)
+│   │   └── Session.php     ← Gestion sessions sécurisées
+│   └── helpers/
+│       └── functions.php   ← Fonctions utilitaires
 ├── database/
-│   ├── schema.sql      ← Création des tables MySQL
-│   ├── fixtures.sql    ← Données de test
-│   └── mongo_setup.js  ← Initialisation MongoDB
-├── .env.example
+│   ├── schema.sql          ← Création des tables MySQL
+│   └── fixtures.sql        ← Données de test
+├── .env.example            ← Template variables d'environnement
 ├── .gitignore
 └── README.md
-```
 
 ---
 
-## Comptes de démonstration (à mettre à jour avec vos fixtures)
+## 🗄️ Base de données
 
-| Rôle | Email | Mot de passe |
-|------|-------|-------------|
-| Administrateur | admin@viteetgourmand.fr | [voir .env ou fixtures] |
-| Employé | employe1@viteetgourmand.fr | [voir fixtures] |
-| Utilisateur | client@test.fr | [voir fixtures] |
+Le schéma MySQL comprend les tables suivantes :
 
----
-
-## Gestion Git
-
-```
-main          ← Production
-└── develop   ← Intégration / tests
-    ├── feature/auth
-    ├── feature/menus
-    ├── feature/commande
-    ├── feature/espace-employe
-    └── feature/espace-admin
-```
+- `role` — Rôles utilisateurs (administrateur, employé, utilisateur)
+- `utilisateur` — Comptes utilisateurs
+- `menu` — Catalogue des menus
+- `theme` — Thèmes des menus (Noël, Pâques, classique...)
+- `regime` — Régimes alimentaires (classique, végétarien, vegan...)
+- `plat` — Plats proposés dans les menus
+- `allergene` — Allergènes (14 allergènes réglementaires EU)
+- `plat_allergene` — Relation plats/allergènes
+- `menu_plat` — Relation menus/plats
+- `horaire` — Horaires d'ouverture
+- `commande` — Commandes clients
+- `commande_historique` — Suivi des statuts de commande
+- `avis` — Avis clients
 
 ---
 
-## Déploiement production
+## 🔐 Sécurité
 
-Voir `docs/deploiement.pdf` pour la procédure complète (Railway / Vercel).
-
----
-
-## Conformité
-
-- ✅ RGPD : consentement explicite, politique de confidentialité, droit à l'effacement
-- ✅ RGAA : navigation clavier, attributs alt, labels formulaires, contrastes AA
-- ✅ Sécurité OWASP : injections SQL (PDO), XSS (htmlspecialchars), CSRF tokens, bcrypt
+- **Injections SQL** : Requêtes préparées PDO sur toutes les requêtes
+- **XSS** : Echappement systématique avec `htmlspecialchars()`
+- **Mots de passe** : Hachage bcrypt avec `password_hash()` (coût 12)
+- **Sessions** : `session_regenerate_id()` à la connexion, cookies httpOnly
+- **Contrôle d'accès** : Vérification du rôle sur chaque page sensible
+- **HTTPS** : SSL automatique en production (Railway)
+- **Variables sensibles** : Fichier `.env` exclu du dépôt Git
 
 ---
 
-© 2024 Vite & Gourmand – Développé par FastDev
+## 🌿 Gestion Git
+main              ← Production (stable)
+└── develop       ← Intégration / tests
+├── feature/auth
+├── feature/menus
+├── feature/commande
+├── feature/espace-employe
+└── feature/espace-admin
+
+**Convention des commits :**
+- `feat:` Nouvelle fonctionnalité
+- `fix:` Correction de bug
+- `refactor:` Refactoring
+- `style:` Modifications CSS/UI
+- `docs:` Documentation
+- `db:` Modifications base de données
+
+---
+
+## ✅ Fonctionnalités développées
+
+- [x] Page d'accueil avec avis clients validés
+- [x] Catalogue menus avec filtres dynamiques (JS côté client)
+- [x] Page détail menu (plats, allergènes, conditions)
+- [x] Inscription avec validation mot de passe fort
+- [x] Connexion / Déconnexion / Mot de passe oublié
+- [x] Commande en ligne multi-étapes
+- [x] Calcul automatique prix (réduction 10% si +5 pers., frais livraison)
+- [x] Espace utilisateur (historique, suivi, annulation, avis)
+- [x] Espace employé (commandes, menus, modération avis)
+- [x] Espace admin (statistiques, graphiques, gestion employés)
+- [x] Contact / Mentions légales / CGV
+- [x] Déploiement en production
+
+---
+
+## 👨‍💻 Développeur
+
+**Stéphane Gautier**
+Formation : Titre Professionnel Développeur Web et Web Mobile (TP DWWM)
+Organisme : Studi — Mai 2026
+
+---
+
+*© 2026 Vite & Gourmand — Conçu avec ❤️ par Stéphane Gautier*

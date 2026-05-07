@@ -1,202 +1,108 @@
-/* public/css/style.css - Vite & Gourmand */
+/* Vite & Gourmand - Style CSS
+   Développeur : Stéphane Gautier - TP DWWM Studi 2026 */
 
-/* ============================
-   Variables de couleur (Charte)
-   ============================ */
 :root {
-    --vg-purple: #4F2D7F;
-    --vg-gold:   #E6A817;
-    --vg-light:  #F9F5FF;
-    --vg-text:   #2C2C2C;
+    --couleur-principale: #4a2c0a;
+    --couleur-accent: #c9954a;
+    --couleur-fond: #fdf8f0;
+    --couleur-texte: #3d2b1a;
+    --couleur-muted: #8a7460;
 }
 
-/* ============================
-   Utilitaires
-   ============================ */
-.bg-vg          { background-color: var(--vg-purple) !important; }
-.text-vg        { color: var(--vg-purple) !important; }
-.text-gold      { color: var(--vg-gold) !important; }
-.bg-vg-light    { background-color: var(--vg-light) !important; }
-.btn-vg         { background-color: var(--vg-purple); color: #fff; border: none; }
-.btn-vg:hover   { background-color: #3a1f5e; color: #fff; }
-.btn-gold       { background-color: var(--vg-gold); color: #fff; border: none; }
-.btn-gold:hover { background-color: #c48b0a; color: #fff; }
-
-/* ============================
-   Accessibilité (RGAA)
-   ============================ */
-.skip-link {
-    position: absolute;
-    top: -50px;
-    left: 1rem;
-    background: var(--vg-purple);
-    color: #fff;
-    padding: .5rem 1rem;
-    border-radius: 0 0 .5rem .5rem;
-    z-index: 9999;
-    transition: top .2s;
-    text-decoration: none;
-}
-.skip-link:focus { top: 0; }
-
-/* Contrastes focus */
-:focus-visible {
-    outline: 3px solid var(--vg-gold);
-    outline-offset: 2px;
+body {
+    background-color: var(--couleur-fond);
+    font-family: Arial, sans-serif;
+    color: var(--couleur-texte);
 }
 
-/* ============================
-   HERO
-   ============================ */
-.hero {
-    background: linear-gradient(135deg, var(--vg-purple) 0%, #7b5ea7 100%);
-    color: #fff;
-    padding: 5rem 0;
-    text-align: center;
+.navbar-custom {
+    background-color: var(--couleur-principale);
 }
-.hero h1 { font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 700; }
-.hero p   { font-size: 1.2rem; opacity: .9; max-width: 600px; margin: 1rem auto; }
 
-/* ============================
-   Cartes menus
-   ============================ */
-.menu-card {
+.btn-accent {
+    background-color: var(--couleur-accent);
+    color: white;
     border: none;
-    border-radius: 1rem;
-    box-shadow: 0 4px 16px rgba(79,45,127,.12);
-    transition: transform .2s, box-shadow .2s;
-    height: 100%;
-}
-.menu-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 8px 28px rgba(79,45,127,.2);
-}
-.menu-card .card-img-top {
-    border-radius: 1rem 1rem 0 0;
-    height: 200px;
-    object-fit: cover;
-}
-.badge-theme {
-    background: var(--vg-gold);
-    color: #fff;
-    font-size: .75rem;
-    padding: .3rem .7rem;
-    border-radius: 20px;
-}
-.badge-regime {
-    background: var(--vg-purple);
-    color: #fff;
-    font-size: .75rem;
-    padding: .3rem .7rem;
-    border-radius: 20px;
+    padding: 8px 20px;
+    border-radius: 4px;
+    text-decoration: none;
+    display: inline-block;
 }
 
-/* ============================
-   Filtres
-   ============================ */
-#filtres-panel {
-    background: var(--vg-light);
-    border-radius: 1rem;
-    padding: 1.5rem;
-    border: 1px solid #e0d0f5;
+.btn-accent:hover {
+    background-color: #b8843a;
+    color: white;
 }
 
-/* ============================
-   Avis clients
-   ============================ */
-.avis-card {
-    background: #fff;
-    border-radius: 1rem;
-    padding: 1.5rem;
-    box-shadow: 0 2px 12px rgba(0,0,0,.07);
-}
-.stars { color: var(--vg-gold); }
-
-/* ============================
-   Commande stepper
-   ============================ */
-.stepper {
-    display: flex;
-    gap: 0;
-    margin-bottom: 2rem;
-}
-.step {
-    flex: 1;
-    text-align: center;
-    padding: .75rem;
-    background: #e9ecef;
-    color: #666;
-    font-weight: 600;
-    position: relative;
-}
-.step.active  { background: var(--vg-purple); color: #fff; }
-.step.done    { background: var(--vg-gold);   color: #fff; }
-.step:not(:last-child)::after {
-    content: '';
-    position: absolute;
-    right: -10px;
-    top: 50%;
-    transform: translateY(-50%);
-    border: 10px solid transparent;
-    border-left-color: inherit;
-    z-index: 1;
-}
-
-/* ============================
-   Conditions menu - alerte visuelle
-   ============================ */
-.conditions-alert {
-    background: #fff3cd;
-    border-left: 5px solid var(--vg-gold);
-    padding: 1rem 1.5rem;
-    border-radius: 0 .5rem .5rem 0;
-    margin-bottom: 1.5rem;
-}
-
-/* ============================
-   Suivi commande timeline
-   ============================ */
-.timeline { position: relative; padding-left: 2rem; }
-.timeline::before {
-    content: '';
-    position: absolute;
-    left: .5rem;
-    top: 0; bottom: 0;
-    width: 2px;
-    background: #dee2e6;
-}
-.timeline-item {
-    position: relative;
+.section-title {
+    color: var(--couleur-principale);
+    font-weight: bold;
     margin-bottom: 1rem;
 }
-.timeline-item::before {
-    content: '';
-    position: absolute;
-    left: -1.625rem;
-    top: .3rem;
-    width: 14px; height: 14px;
-    border-radius: 50%;
-    background: var(--vg-purple);
+
+.card-custom {
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    padding: 15px;
+    background: white;
 }
 
-/* ============================
-   Admin dashboard
-   ============================ */
-.stat-card {
-    background: var(--vg-light);
-    border-radius: 1rem;
-    padding: 1.5rem;
-    border-left: 5px solid var(--vg-purple);
-    transition: transform .15s;
+.alert-custom-success {
+    background: #d4edda;
+    border: 1px solid #c3e6cb;
+    color: #155724;
+    padding: 10px 15px;
+    border-radius: 4px;
+    margin-bottom: 1rem;
 }
-.stat-card:hover { transform: scale(1.02); }
-.stat-card .stat-number { font-size: 2.5rem; font-weight: 700; color: var(--vg-purple); }
 
-/* ============================
-   Responsive
-   ============================ */
-@media (max-width: 768px) {
-    .hero { padding: 3rem 1rem; }
-    .stepper { flex-direction: column; }
-    .step::after { display: none; }
+.alert-custom-error {
+    background: #f8d7da;
+    border: 1px solid #f5c6cb;
+    color: #721c24;
+    padding: 10px 15px;
+    border-radius: 4px;
+    margin-bottom: 1rem;
+}
+
+.form-label-custom {
+    font-size: 0.85rem;
+    font-weight: bold;
+    color: var(--couleur-muted);
+    margin-bottom: 4px;
+    display: block;
+}
+
+.badge-en_attente     { background:#fff3cd;color:#856404;padding:3px 8px;border-radius:4px;font-size:.8rem }
+.badge-accepte        { background:#cce5ff;color:#004085;padding:3px 8px;border-radius:4px;font-size:.8rem }
+.badge-en_preparation { background:#e2d9f3;color:#4a235a;padding:3px 8px;border-radius:4px;font-size:.8rem }
+.badge-en_livraison   { background:#ffd5b8;color:#7d3c00;padding:3px 8px;border-radius:4px;font-size:.8rem }
+.badge-livre          { background:#d4edda;color:#155724;padding:3px 8px;border-radius:4px;font-size:.8rem }
+.badge-terminee       { background:#c3e6cb;color:#155724;padding:3px 8px;border-radius:4px;font-size:.8rem }
+.badge-annulee        { background:#f8d7da;color:#721c24;padding:3px 8px;border-radius:4px;font-size:.8rem }
+.badge-attente_materiel { background:#fff3cd;color:#856404;padding:3px 8px;border-radius:4px;font-size:.8rem }
+
+.page-header {
+    background-color: var(--couleur-principale);
+    color: white;
+    padding: 30px 0;
+    margin-bottom: 2rem;
+}
+
+.page-header h1 {
+    font-size: 1.8rem;
+    font-weight: bold;
+}
+
+footer {
+    background-color: var(--couleur-principale);
+    color: rgba(255,255,255,0.7);
+    padding: 25px 0;
+    margin-top: 50px;
+    text-align: center;
+}
+
+footer a {
+    color: var(--couleur-accent);
+    text-decoration: none;
 }

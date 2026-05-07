@@ -345,6 +345,7 @@ if ($dbOk) {
         <a href="/menus" class="btn-accent">Découvrir nos menus →</a>
     </div>
 </section>
+<<<<<<< HEAD
 
 <!-- Footer -->
 <footer class="text-center">
@@ -359,6 +360,14 @@ if ($dbOk) {
             Conçu avec ❤️ par <strong style="color:rgba(201,149,74,0.8)">Stéphane Gautier</strong>
         </small>
     </div>
+=======
+<footer>
+  <div class="container">
+    <p style="font-family:'Playfair Display',serif;font-size:1.2rem;color:rgba(255,255,255,.25);margin-bottom:1rem">Vite & Gourmand</p>
+    <p><a href="/mentions-legales">Mentions légales</a> · <a href="/cgv">CGV</a> · <a href="/contact">Contact</a></p>
+    <p style="margin-top:1rem;font-size:.8rem">© <?= date('Y') ?> Vite & Gourmand — Traiteur Bordeaux</p>
+  </div>
+>>>>>>> parent of 8321edb (feat: signature Stéphane Gautier dans tous les footers)
 </footer>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>

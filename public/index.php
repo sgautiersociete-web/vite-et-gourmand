@@ -44,6 +44,7 @@ $routes = [
     '/create-employe'      => 'create-employe',
     '/toggle-employe'      => 'toggle-employe',
     '/mot-de-passe-oublie' => 'mot-de-passe-oublie',
+    '/menu-detail'         => 'menu-detail',
     '/reset-pwd'           => 'reset-pwd',
 ];
 

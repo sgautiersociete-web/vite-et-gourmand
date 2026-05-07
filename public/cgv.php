@@ -2,7 +2,7 @@
 // Page CGV - Vite & Gourmand
 // Développeur : Stéphane Gautier - TP DWWM Studi
 $page_title = 'Conditions Générales de Vente';
-require '_header.php';
+require __DIR__ . '/_header.php';
 ?>
 
 <div class="page-header">
@@ -56,4 +56,4 @@ require '_header.php';
     </div>
 </div>
 
-<?php require '_footer.php'; ?>
+<?php require __DIR__ . '/_footer.php'; ?>

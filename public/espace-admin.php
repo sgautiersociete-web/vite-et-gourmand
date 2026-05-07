@@ -148,7 +148,7 @@ nav{background:var(--dark);padding:1.2rem 2rem;display:flex;justify-content:spac
   <div class="tab-content <?= $tab==='employes'?'active':'' ?>">
     <div class="form-card">
       <h3>➕ Créer un compte employé</h3>
-      <form method="POST" action="/create-employe.php">
+      <form method="POST" action="/create-employe">
         <div class="form-row">
           <div class="form-group">
             <label class="form-label">Nom</label>
@@ -180,7 +180,7 @@ nav{background:var(--dark);padding:1.2rem 2rem;display:flex;justify-content:spac
       </div>
       <div style="display:flex;align-items:center;gap:1rem">
         <span class="<?= $e['actif']?'badge-actif':'badge-inactif' ?>"><?= $e['actif']?'Actif':'Inactif' ?></span>
-        <form method="POST" action="/toggle-employe.php">
+        <form method="POST" action="/toggle-employe">
           <input type="hidden" name="employe_id" value="<?= $e['utilisateur_id'] ?>">
           <input type="hidden" name="actif" value="<?= $e['actif']?0:1 ?>">
           <button type="submit" class="btn-toggle <?= $e['actif']?'btn-disable':'btn-enable' ?>">

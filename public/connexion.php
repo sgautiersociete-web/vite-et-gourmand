@@ -145,7 +145,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--dark);min-height:100vh;di
   <div class="error"><i class="bi bi-exclamation-circle"></i> <?= htmlspecialchars($error) ?></div>
   <?php endif; ?>
 
-  <form method="POST" action="/connexion.php">
+  <form method="POST" action="/connexion">
     <div class="form-group">
       <label class="form-label">Adresse email</label>
       <input type="email" name="email" class="form-input" placeholder="votre@email.fr" required

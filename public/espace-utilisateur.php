@@ -186,7 +186,7 @@ footer a{color:rgba(201,149,74,.6);text-decoration:none}
 
       <div class="commande-actions">
         <?php if($c['statut'] === 'en_attente'): ?>
-        <form method="POST" action="/annuler-commande.php" onsubmit="return confirm('Annuler cette commande ?')">
+        <form method="POST" action="/annuler-commande" onsubmit="return confirm('Annuler cette commande ?')">
           <input type="hidden" name="commande_id" value="<?= $c['commande_id'] ?>">
           <button type="submit" class="btn-action btn-cancel"><i class="bi bi-x-circle"></i> Annuler</button>
         </form>
@@ -202,7 +202,7 @@ footer a{color:rgba(201,149,74,.6);text-decoration:none}
         <div style="width:100%">
           <div class="avis-form">
             <div style="font-size:.85rem;font-weight:600;color:var(--dark);margin-bottom:.5rem">Donner votre avis</div>
-            <form method="POST" action="/soumettre-avis.php">
+            <form method="POST" action="/soumettre-avis">
               <input type="hidden" name="commande_id" value="<?= $c['commande_id'] ?>">
               <div class="stars-input">
                 <?php for($i=5;$i>=1;$i--): ?>
@@ -229,7 +229,7 @@ footer a{color:rgba(201,149,74,.6);text-decoration:none}
   <div class="tab-content <?= $tab==='profil'?'active':'' ?>">
     <div class="profil-form">
       <h2 style="font-size:1.3rem;margin-bottom:1.5rem">Mes informations</h2>
-      <form method="POST" action="/modifier-profil.php">
+      <form method="POST" action="/modifier-profil">
         <div class="form-row">
           <div class="form-group">
             <label class="form-label">Nom</label>

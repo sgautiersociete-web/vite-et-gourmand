@@ -89,7 +89,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--dark);min-height:100vh;di
   </div>
   <?php else: ?>
 
-  <form method="POST" action="/inscription.php" id="form-register">
+  <form method="POST" action="/inscription" id="form-register">
     <div class="section-title">Informations personnelles</div>
     <div class="form-row">
       <div class="form-group">

@@ -25,6 +25,9 @@ $routes = [
     '/toggle-employe'     => 'toggle-employe',
 ];
 
+error_reporting(E_ALL);
+ini_set('display_errors', '1');
+
 $page = $routes[$uri] ?? null;
 
 if($page) {
@@ -32,8 +35,10 @@ if($page) {
     if(file_exists($file)) {
         require $file;
         exit;
+    } else {
+        echo "Fichier manquant : " . $file;
+        exit;
     }
 }
 
-http_response_code(404);
-echo '<!DOCTYPE html><html><head><meta charset="UTF-8"><title>404</title></head><body style="font-family:sans-serif;text-align:center;padding:5rem;background:#FDF8F0"><h1 style="font-family:serif;color:#1A0F00">404</h1><p style="color:#8A7460">Page non trouvée</p><a href="/" style="color:#C9954A">← Retour</a></body></html>';
+echo "URI: " . $uri . " — Page non trouvée";

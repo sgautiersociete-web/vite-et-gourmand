@@ -1,6 +1,6 @@
 <?php
 
-if(Session::isLoggedIn()) header('Location: /espace-utilisateur.php') and die();
+if(Session::isLoggedIn()) header('Location: /espace-utilisateur') and die();
 
 $error = '';
 
@@ -64,7 +64,7 @@ cd ~/Documents/GitHub/vite-et-gourmand
 cat > public/connexion.php << 'PHPEOF'
 Session::start();
 
-if(Session::isLoggedIn()) header('Location: /espace-utilisateur.php') and die();
+if(Session::isLoggedIn()) header('Location: /espace-utilisateur') and die();
 
 $error = '';
 

@@ -31,6 +31,7 @@ $routes = [
     '/create-employe'      => 'create-employe',
     '/toggle-employe'      => 'toggle-employe',
     '/mot-de-passe-oublie' => 'mot-de-passe-oublie',
+    '/reset-pwd'           => 'reset-pwd',
 ];
 
 $page = $routes[$uri] ?? null;
